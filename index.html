@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>breaking bad. 绝命毒师逐集打卡</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<meta name="theme-color" content="#0C0F12">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Segoe UI",sans-serif;background:#0C0F12;color:#C8D0D8;line-height:1.7;letter-spacing:.01em;padding-bottom:40px}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px}
+::selection{background:#2FB963;color:#fff}
+a{color:#5BC97F}
+/* ===== 头部 ===== */
+.bb-head{padding:52px 0 26px;text-align:center}
+.bb-logo{display:flex;justify-content:center;gap:14px;margin-bottom:20px}
+.bb-el{width:84px;height:100px;border:2px solid #2FB963;border-radius:6px;position:relative;color:#2FB963;background:rgba(47,185,99,.06)}
+.bb-el .no{position:absolute;top:6px;left:9px;font-size:13px;font-weight:600;color:#7ECFA0}
+.bb-el .nm{position:absolute;top:34%;left:0;width:100%;text-align:center;font-size:38px;font-weight:700;letter-spacing:.02em}
+.bb-el .cn{position:absolute;bottom:7px;left:0;width:100%;text-align:center;font-size:12px;color:#7ECFA0}
+.bb-title{font-size:26px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#E6EBEF}
+.bb-title b{color:#2FB963}
+.bb-sub{margin-top:8px;font-size:13.5px;color:#7A8590;letter-spacing:.06em}
+.bb-tag{margin:18px auto 0;max-width:340px;font-size:12.5px;color:#8A95A0;border:1px dashed #2A323B;border-radius:8px;padding:10px 14px;line-height:1.8}
+/* ===== 进度栏 ===== */
+.bb-bar{position:sticky;top:0;z-index:50;background:rgba(12,15,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #1E242B;padding:12px 0}
+.bb-bar-in{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.bb-big{font-size:22px;font-weight:800;color:#E6EBEF;font-variant-numeric:tabular-nums}
+.bb-big span{color:#2FB963}
+.bb-pct{font-size:12.5px;color:#7A8590;font-variant-numeric:tabular-nums}
+.bb-track{margin-top:7px;height:5px;border-radius:99px;background:#1A2027;overflow:hidden}
+.bb-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#1F8A4C,#2FB963);transition:width .4s}
+.bb-fin{display:none;margin-top:6px;font-size:12px;color:#2FB963;letter-spacing:.04em}
+.bb-fin.on{display:block}
+/* ===== 季区 ===== */
+.bb-season{margin-top:34px}
+.bb-sh{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;border-bottom:1px solid #1E242B;padding-bottom:8px}
+.bb-sh .sn{font-size:17px;font-weight:800;color:#D9A441;letter-spacing:.08em}
+.bb-sh .sy{font-size:12px;color:#7A8590}
+.bb-sh .sc{margin-left:auto;font-size:12px;color:#7A8590;font-variant-numeric:tabular-nums}
+.bb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:8px}
+.bb-cell{aspect-ratio:1/1.18;border:1px solid #2A323B;border-radius:6px;background:#151A20;position:relative;cursor:pointer;user-select:none;transition:border-color .18s,background .18s,box-shadow .18s;overflow:hidden}
+.bb-cell .n{position:absolute;top:5px;left:7px;font-size:10.5px;font-weight:600;color:#5A646E;font-variant-numeric:tabular-nums}
+.bb-cell .t{position:absolute;top:36%;left:0;width:100%;text-align:center;font-size:20px;font-weight:700;color:#8A95A0;letter-spacing:.02em}
+.bb-cell .w{position:absolute;bottom:5px;left:0;width:100%;text-align:center;font-size:9px;color:#3A444E;letter-spacing:.12em}
+.bb-cell.hit{background:rgba(47,185,99,.13);border-color:#2FB963}
+.bb-cell.hit .t{color:#3ED06E;text-shadow:0 0 14px rgba(47,185,99,.45)}
+.bb-cell.hit .n{color:#7ECFA0}
+.bb-cell.hit .w{color:#2FB963}
+.bb-cell.star::after{content:"★";position:absolute;top:4px;right:6px;font-size:9px;color:#D9A441}
+.bb-cell:active{transform:scale(.94)}
+/* ===== 详情卡 ===== */
+.bb-mask{position:fixed;inset:0;background:rgba(5,8,10,.6);z-index:80;display:none}
+.bb-mask.on{display:block}
+.bb-sheet{position:fixed;left:0;right:0;bottom:0;z-index:90;background:#14181D;border-top:2px solid #2FB963;border-radius:18px 18px 0 0;padding:26px 22px 34px;transform:translateY(105%);transition:transform .28s cubic-bezier(.32,.72,.35,1);max-width:640px;margin:0 auto}
+.bb-sheet.on{transform:translateY(0)}
+.bb-close{position:absolute;top:10px;right:14px;font-size:22px;color:#5A646E;cursor:pointer;padding:4px 10px}
+.bs-no{font-size:12px;color:#D9A441;font-weight:700;letter-spacing:.16em}
+.bs-title{font-size:21px;font-weight:800;color:#E6EBEF;margin-top:5px;letter-spacing:.01em}
+.bs-date{font-size:12px;color:#7A8590;margin-top:3px;font-variant-numeric:tabular-nums}
+.bs-badge{display:inline-block;margin-top:10px;font-size:11.5px;color:#0C0F12;background:#D9A441;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.04em}
+.bs-desc{margin-top:14px;font-size:15px;color:#B4BEC7;line-height:1.95}
+.bs-do{margin-top:22px;display:flex;gap:10px;align-items:center}
+.bs-toggle{flex:1;font-size:16px;font-weight:700;padding:13px 0;border-radius:11px;border:none;cursor:pointer;letter-spacing:.04em;transition:background .15s,color .15s}
+.bs-toggle.off{background:#2FB963;color:#07130B}
+.bs-toggle.on{background:#1A2027;color:#2FB963;border:1px solid #2FB963}
+.bs-nav{display:flex;gap:10px}
+.bs-arrow{width:46px;font-size:18px;background:#1A2027;color:#C8D0D8;border:1px solid #2A323B;border-radius:11px;cursor:pointer}
+.bs-arrow:disabled{opacity:.3}
+/* ===== 底部 ===== */
+.bb-foot{margin-top:48px;padding-top:18px;border-top:1px solid #1E242B;font-size:11.5px;color:#5A646E;line-height:2}
+.bb-reset{margin-top:14px;font-size:13px;color:#7A8590;background:none;border:1px solid #2A323B;border-radius:9px;padding:9px 18px;cursor:pointer}
+.bb-reset.arm{color:#E06666;border-color:#E06666}
+@media(min-width:600px){.bb-grid{gap:10px}.bb-cell .t{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bb-head">
+    <div class="bb-logo">
+      <div class="bb-el"><span class="no">35</span><div class="nm">Br</div><div class="cn">溴</div></div>
+      <div class="bb-el"><span class="no">56</span><div class="nm">Ba</div><div class="cn">钡</div></div>
+    </div>
+    <div class="bb-title">breaking <b>bad</b>.</div>
+    <div class="bb-sub">绝命毒师 · 全 5 季 62 集 · 逐集打卡</div>
+    <div class="bb-tag">一个化学老师的堕落编年史——从确诊那天起，到帝国落成与崩塌。点格子记进度，S 键快速回看单集。</div>
+  </header>
+
+  <div class="bb-bar"><div class="wrap" style="padding:0 18px">
+    <div class="bb-bar-in">
+      <div class="bb-big"><span id="bbCnt">0</span><span style="color:#7A8590;font-size:14px"> / 62</span></div>
+      <div class="bb-pct" id="bbPct">0%</div>
+    </div>
+    <div class="bb-track"><div class="bb-fill" id="bbFill"></div></div>
+    <div class="bb-fin" id="bbFin">“I did it for me. I liked it. I was good at it.” —— 你已看完全部 62 集。</div>
+  </div></div>
+
+  <main id="bbMain"></main>
+
+  <footer class="bb-foot">
+    集名与首播日期依据 Metacritic 官方单集页；中文梗概译自其官方单集简介，细节以剧集为准。<br>
+    本站仅作个人追剧打卡记录，数据保存在本机浏览器里。
+    <br><button class="bb-reset" id="bbReset">清空全部记录</button>
+  </footer>
+</div>
+
+<div class="bb-mask" id="bbMask"></div>
+<div class="bb-sheet" id="bbSheet">
+  <div class="bb-close" id="bbClose">✕</div>
+  <div class="bs-no" id="bsNo">S1 · E1</div>
+  <div class="bs-title" id="bsTitle">Pilot</div>
+  <div class="bs-date" id="bsDate">2008.01.20</div>
+  <div class="bs-badge" id="bsBadge" style="display:none"></div>
+  <div class="bs-desc" id="bsDesc"></div>
+  <div class="bs-do">
+    <button class="bs-arrow" id="bsPrev">‹</button>
+    <button class="bs-toggle off" id="bsToggle">看过 ✓</button>
+    <button class="bs-arrow" id="bsNext">›</button>
+  </div>
+</div>
+
+<script>
+const SEASONS=[{"s":1,"year":"2008","eps":[[1,"Pilot","2008.01.20","确诊绝症的中学化学老师，与昔日学生合伙制毒，想为家人留一条财务后路。","起点 · 一切开始"],[2,"Cat's in the Bag...","2008.01.27","首次制毒的恶果接踵而至，Walt 与 Jesse 手忙脚乱收拾残局；Skyler 对丈夫的反常起了疑心。",""],[3,"...And the Bag's in the River","2008.02.10","处理「第一次」留下的麻烦时，Walt 面临撕扯内心的道德抉择；Hank 查到一条不安的线索。",""],[4,"Cancer Man","2008.02.17","全家消化癌症确诊的消息、权衡治疗方案；Jesse 回到疏远多年的父母家，旧日矛盾一并爆发。",""],[5,"Gray Matter","2008.02.24","要不要治病？家人为 Walt 办了场情绪激昂的劝医会，富有的昔日合伙人伸出援手；Jesse 想回归正轨。",""],[6,"Crazy Handful of Nothin'","2008.03.02","化疗让 Walt 越发强硬，他逼 Jesse 通过火爆的新经销商扩张；Hank 的调查逼近。",""],[7,"A No-Rough-Stuff-Type Deal","2008.03.09","为满足不断加码的拿货要求，两人铤而走险去搞关键原料；Skyler 的迎婴会上家庭暗流涌动。",""]]},{"s":2,"year":"2009","eps":[[1,"Seven Thirty-Seven","2009.03.08","Walt 给家人定下天文数字的「目标」，同时要防备越来越危险的经销商；Skyler 被他的反常吓到。",""],[2,"Grilled","2009.03.15","两人落入偏执经销商的股掌、拼命寻路逃生；Hank 顺着 Walt 失踪的线索追了过来。",""],[3,"Bit by a Dead Bee","2009.03.22","Walt 与 Jesse 编织天衣无缝的假故事解释失踪；Hank 劫后难平，Skyler 追问丈夫的版本。",""],[4,"Down","2009.03.29","Skyler 越走越远，Walt 努力拉回家人的心；Jesse 被扫地出门，四处寻找容身之处。",""],[5,"Breakage","2009.04.05","资金见底，两人搭起街头分销网络；Hank 被创伤缠身，White 家内部张力加深。",""],[6,"Peekaboo","2009.04.12","Jesse 寻访抢劫下线的瘾君子，却在污浊的家里撞见一个被忽视的孩子；Walt 医疗费的谎言开始松脱。",""],[7,"Negro y Azul","2009.04.19","蓝色冰毒声名鹊起，Walt 逼 Jesse 扩张地盘；Hank 领教新差事的残酷，Jesse 与女房东越走越近。",""],[8,"Better Call Saul","2009.04.26","手下被抓，两人求助一位浮夸的刑事律师——他另辟蹊径的办法也许能保住生意和身份。","衍生剧《风骚律师》本尊登场"],[9,"4 Days Out","2009.05.03","自觉时日无多，Walt 拉 Jesse 去沙漠赶工四天，一场意外却让回家成了难题。",""],[10,"Over","2009.05.10","检查结果向好，Walt 反而无法安于平凡，把躁动发泄在修房整屋上；Jesse 与 Jane 越走越近。",""],[11,"Mandala","2009.05.17","生意遭重创后两人寻找新经销商；Jesse 和 Jane 感情升温，Skyler 在职场上面临道德抉择。",""],[12,"Phoenix","2009.05.24","Skyler 临产，Walt 却被一桩关键生意叫走；Jesse 与 Jane 的关系开始侵蚀他与 Walt 的合伙。",""],[13,"ABQ","2009.05.31","Jesse 在私痛中沉沦，Walt 术前部署、确保家人未来；Skyler 对他秘密生活的怀疑愈发灼热。",""]]},{"s":3,"year":"2010","eps":[[1,"No Más","2010.03.21","悲剧过后，Walt 被负罪感啃噬，强撑家的完整；Jesse 直面过往，新的威胁正向阿尔伯克基逼近。",""],[2,"Caballo sin Nombre","2010.03.28","分居与路侧冲突令 Walt 晕头转向；Jesse 想夺回旧宅，两个神秘陌生人正在收网。",""],[3,"I.F.T.","2010.04.04","Walt 强行搬回家中，婚姻滑向破裂边缘；Jesse 重开炉灶，Hank 为埃尔帕索的调令犯难。",""],[4,"Green Light","2010.04.11","婚姻崩盘的愤怒让 Walt 行事越发鲁莽；Jesse 独自开灶，Hank 在蓝冰毒案上摸到关键线索。",""],[5,"Más","2010.04.18","一份诱人邀约让 Walt 起意重返毒品生意；Jesse 继续单干，Hank 对那辆行踪诡秘的房车步步紧逼。",""],[6,"Sunset","2010.04.25","Walt 入职新实验室渐入轨道；Hank 搜寻房车的网收向 Jesse，被迫拆伙的两人拼命保住秘密。",""],[7,"One Minute","2010.05.02","一场暴力冲突之后，Hank 面临严重后果；Walt 想修复与 Jesse 的裂痕，致命威胁正逼近目标。",""],[8,"I See You","2010.05.09","Hank 遇袭后命悬一线；Walt 在家庭危机与实验室高压间左右支绌，Gus 全力控制事态。",""],[9,"Kafkaesque","2010.05.16","新秩序渐稳，Jesse 却对分成积怨；Skyler 为家庭财务编好故事，Hank 开始艰难的康复。",""],[10,"Fly","2010.05.23","一点小小的污染让 Walt 陷入偏执，实验室里耗尽一整夜，两人压在心底的焦虑浮出水面。","著名瓶集 · 一夜一只苍蝇"],[11,"Abiquiu","2010.05.30","Skyler 谋划把黑钱「洗白」；Jesse 在互助会上结识新的人，却牵出旧日不安的关联。",""],[12,"Half Measures","2010.06.06","Jesse 策划向害死 Combo 的毒贩复仇，Walt 必须决定护他护到哪一步；Skyler 推进洗钱计划。",""],[13,"Full Measure","2010.06.13","Walt 的干预打碎了脆弱的平衡，Gus 重新收紧控制，两人陷入殊死求存。",""]]},{"s":4,"year":"2011","eps":[[1,"Box Cutter","2011.07.17","殊死一搏之后，Walt 与 Jesse 等待 Gus 的裁决；Skyler 寻找失踪的丈夫，Marie 支撑着日益封闭的 Hank。",""],[2,"Thirty-Eight Snub","2011.07.24","Walt 暗中为一场危险的对峙做准备；Jesse 沉溺于昼夜不停的派对，Skyler 张罗买洗车行。",""],[3,"Open House","2011.07.31","Skyler 推进收购洗车行的计划；Jesse 的派对愈发放纵，Marie 用不健康的方式逃离照护压力。",""],[4,"Bullet Points","2011.08.07","夫妻俩排演财务「台词」，Hank 却在 Heisenberg 案上抛出惊人发现；Jesse 的放纵引来危险注意。",""],[5,"Shotgun","2011.08.14","Jesse 被拉去跟 Mike 跑一连串神秘差事，Walt 恐惧最坏的结果；Hank 被重新拉回 Heisenberg 案。",""],[6,"Cornered","2011.08.21","Skyler 被 Walt 的鲁莽惊到；Jesse 越陷越深，卡特尔的步步紧逼威胁着 Gus 的生意。",""],[7,"Problem Dog","2011.08.28","Walt 逼 Jesse 迈出危险一步，Jesse 与负罪感缠斗；Skyler 对他挥霍的数目发难，Hank 提出惊人理论。",""],[8,"Hermanos","2011.09.04","Hank 的怀疑锁定 Gus，Walt 被卷入调查；步步紧逼之下，Gus 往事的关键一章浮出水面。",""],[9,"Bug","2011.09.11","调查逼近，Walt 逼 Jesse 行动、合伙关系吃紧；卡特尔要价步步升级，Skyler 直面可能暴露全家的税务危机。",""],[10,"Salud","2011.09.18","Jesse 在墨西哥迎来大考，Gus 与卡特尔摊牌；Walt 的状况令儿子担忧，Skyler 对 Ted 的税务危机痛下决断。",""],[11,"Crawl Space","2011.09.25","Gus 与 Walt 的冲突到达临界点，调查逼近实验室；Skyler 处理 Ted 税务危机的动作，引发连环险情。",""],[12,"End Times","2011.10.02","Gus 收网在即，Walt 拼死护家、斗智周旋；一场突发危机让 Jesse 重新考虑还能信谁。",""],[13,"Face Off","2011.10.09","被逼到墙角的 Walt 与 Jesse，押上一切豪赌一个足以改写权力格局的计划。","全剧名场面"]]},{"s":5,"year":"2012","eps":[[1,"Live Free or Die","2012.07.15","致命摊牌之后，Walt 与 Jesse 竞速销毁暴露证据，Mike 被拉入大胆计划；Skyler 面对家里可怕的新现实。",""],[2,"Madrigal","2012.07.22","Walt 与 Jesse 求 Mike 帮忙重建生意；Gus 的旧部承压，Madrigal 高管忙着止损。",""],[3,"Hazard Pay","2012.07.29","三人用非常规方式重启生产，分钱之争让新合伙出现裂纹；Skyler 对 Walt 回家忧心忡忡。",""],[4,"Fifty-One","2012.08.05","51 岁生日这天，Skyler 的恐惧把夫妻冲突推向决裂；Mike 与 Jesse 追查新生意的威胁。",""],[5,"Dead Freight","2012.08.12","三人铤而走险劫取关键化学品，物流与风险的步步惊心威胁着脆弱的新生意。",""],[6,"Buyout","2012.08.19","一份丰厚的退出报价让三人对生意去留产生分歧；Walt 家中一场尴尬相遇，暴露两个世界的裂痕。",""],[7,"Say My Name","2012.08.26","Walt 野心勃勃扩大生意，Mike 谋划退场，Jesse 思考出路；DEA 的压力步步逼近。",""],[8,"Gliding Over All","2012.09.02","Walt 巩固并扩张他的帝国，处理危险的线头与紧张的关系；Skyler 让他看到自己筑起的一切有多大。",""],[9,"Blood Money","2013.08.11","Walt 归于平静生活，Hank 被一个发现震得头晕目眩；Jesse 的负罪感转向失控，Lydia 带着难题求助。",""],[10,"Buried","2013.08.18","Hank 追问 Skyler，Walt 拼命藏匿家人与财富；Jesse 越发失常的举动引来注意。",""],[11,"Confessions","2013.08.25","Hank 谋划坐实指控，Walt 抢先保护家人；Jesse 认真考虑彻底消失。",""],[12,"Rabid Dog","2013.09.01","Jesse 的怒火可能烧穿一切，Walt 火力全开止损；Hank 行险棋，Skyler 劝下狠手。",""],[13,"To'hajiilee","2013.09.08","Jesse 与 Hank 启动大胆计划，Walt 奔命保护隐匿的财富——危险的盟友与仇家一同被引向引爆点。",""],[14,"Ozymandias","2013.09.15","毁灭性的摊牌过后，Walt 拼命护住家人、挽救帝国残骸——多年的谎言与暴力终于清算到家门口。","公认全剧最佳单集"],[15,"Granite State","2013.09.22","Walt 在藏身地过着与世隔绝的日子，仍想为家人铺好后路；Jesse 身陷绝境，Skyler 面对法律与仇家的双重压力。",""],[16,"Felina","2013.09.29","Walt 回到阿尔伯克基，了结未竟之事，为家人锁好未来，直面他亲手缔造的帝国的一切后果。","大结局"]]}];
+(function(){
+var K='bb62log';
+var FLAT=[];// {s,e,ti,dt,ds,bd,idx}
+SEASONS.forEach(function(sn){sn.eps.forEach(function(ep){FLAT.push({s:sn.s,e:ep[0],ti:ep[1],dt:ep[2],ds:ep[3],bd:ep[4],idx:FLAT.length})})});
+function sym(t){var m=t.replace(/[^A-Za-z]/g,'');return (m.charAt(0)+m.charAt(1)).toUpperCase()===''?'··':(m.charAt(0).toUpperCase()+(m.charAt(1)||'').toLowerCase())||'·'}
+function get(){try{return JSON.parse(localStorage.getItem(K))||{}}catch(x){return{}}}
+function set(d){localStorage.setItem(K,JSON.stringify(d))}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+var main=document.getElementById('bbMain');
+SEASONS.forEach(function(sn,si){
+  var sec=document.createElement('section');sec.className='bb-season';
+  var total=sn.eps.length;
+  var h=document.createElement('div');h.className='bb-sh';
+  h.innerHTML='<span class="sn">S'+sn.s+'</span><span class="sy">'+sn.year+'</span><span class="sc" data-sc="'+sn.s+'">0 / '+total+'</span>';
+  sec.appendChild(h);
+  var g=document.createElement('div');g.className='bb-grid';
+  sn.eps.forEach(function(ep){
+    var c=document.createElement('div');c.className='bb-cell';c.dataset.s=sn.s;c.dataset.e=ep[0];
+    if(ep[4])c.classList.add('star');
+    c.innerHTML='<span class="n">'+ep[0]+'</span><div class="t">'+esc(sym(ep[1]))+'</div><div class="w">S'+sn.s+'E'+ep[0]+'</div>';
+    c.addEventListener('click',function(){openSheet(sn.s,ep[0])});
+    g.appendChild(c);
+  });
+  sec.appendChild(g);main.appendChild(sec);
+});
+function refresh(){
+  var d=get(),n=0;
+  document.querySelectorAll('.bb-cell').forEach(function(c){
+    var on=!!d[c.dataset.s+'-'+c.dataset.e];
+    c.classList.toggle('hit',on);if(on)n++;
+  });
+  SEASONS.forEach(function(sn){
+    var m=0;sn.eps.forEach(function(ep){if(d[sn.s+'-'+ep[0]])m++});
+    var el=document.querySelector('[data-sc="'+sn.s+'"]');if(el)el.textContent=m+' / '+sn.eps.length;
+  });
+  document.getElementById('bbCnt').textContent=n;
+  var p=Math.round(n/62*100);
+  document.getElementById('bbPct').textContent=p+'%';
+  document.getElementById('bbFill').style.width=p+'%';
+  document.getElementById('bbFin').classList.toggle('on',n===62);
+}
+/* sheet */
+var cur=-1;
+var mask=document.getElementById('bbMask'),sheet=document.getElementById('bbSheet');
+function openSheet(s,e){
+  var f=FLAT.filter(function(x){return x.s===s&&x.e===e})[0];if(!f)return;
+  cur=f.idx;fill(f);mask.classList.add('on');sheet.classList.add('on');
+}
+function fill(f){
+  document.getElementById('bsNo').textContent='S'+f.s+' · E'+f.e;
+  document.getElementById('bsTitle').textContent=f.ti;
+  document.getElementById('bsDate').textContent='首播 '+f.dt;
+  var bd=document.getElementById('bsBadge');
+  if(f.bd){bd.style.display='inline-block';bd.textContent='★ '+f.bd}else bd.style.display='none';
+  document.getElementById('bsDesc').textContent=f.ds;
+  var on=!!get()[f.s+'-'+f.e];
+  var bt=document.getElementById('bsToggle');
+  bt.className='bs-toggle '+(on?'on':'off');
+  bt.textContent=on?'已看过 · 撤销':'看过 ✓';
+  document.getElementById('bsPrev').disabled=(cur===0);
+  document.getElementById('bsNext').disabled=(cur===FLAT.length-1);
+}
+function closeSheet(){mask.classList.remove('on');sheet.classList.remove('on');cur=-1}
+document.getElementById('bsToggle').addEventListener('click',function(){
+  if(cur<0)return;var f=FLAT[cur],d=get(),k=f.s+'-'+f.e;
+  d[k]=!d[k];if(!d[k])delete d[k];set(d);fill(f);refresh();
+});
+document.getElementById('bsPrev').addEventListener('click',function(){if(cur>0){cur--;fill(FLAT[cur])}});
+document.getElementById('bsNext').addEventListener('click',function(){if(cur<FLAT.length-1){cur++;fill(FLAT[cur])}});
+document.getElementById('bbClose').addEventListener('click',closeSheet);
+mask.addEventListener('click',closeSheet);
+document.addEventListener('keydown',function(ev){
+  if(cur<0)return;
+  if(ev.key==='ArrowLeft'&&cur>0){cur--;fill(FLAT[cur])}
+  if(ev.key==='ArrowRight'&&cur<FLAT.length-1){cur++;fill(FLAT[cur])}
+  if(ev.key==='Escape')closeSheet();
+});
+/* reset 两步 */
+var rb=document.getElementById('bbReset'),armed=false;
+rb.addEventListener('click',function(){
+  if(!armed){armed=true;rb.classList.add('arm');rb.textContent='再点一次，确认清空全部 62 集记录';
+    setTimeout(function(){if(armed){armed=false;rb.classList.remove('arm');rb.textContent='清空全部记录'}},2600);
+  }else{armed=false;rb.classList.remove('arm');rb.textContent='清空全部记录';localStorage.removeItem(K);refresh()}
+});
+refresh();
+})();
+</script>
+</body>
+</html>
