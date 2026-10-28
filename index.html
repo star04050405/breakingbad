@@ -50,6 +50,8 @@ a{color:#5BC97F}
 .bb-cell.hit{background:rgba(47,185,99,.13);border-color:#2FB963}
 .bb-cell.hit .t{color:#3ED06E;text-shadow:0 0 14px rgba(47,185,99,.45)}
 .bb-cell.hit .n{color:#7ECFA0}
+.bb-cell.pulse{animation:bbPulse 1.3s ease 2;border-color:#D9A441}
+@keyframes bbPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,164,65,0)}50%{box-shadow:0 0 0 5px rgba(217,164,65,.6)}}
 .bb-cell.hit .w{color:#2FB963}
 .bb-cell.star::after{content:"★";position:absolute;top:4px;right:6px;font-size:9px;color:#D9A441}
 .bb-cell:active{transform:scale(.94)}
@@ -165,6 +167,23 @@ function refresh(){
   document.getElementById('bbPct').textContent=p+'%';
   document.getElementById('bbFill').style.width=p+'%';
   document.getElementById('bbFin').classList.toggle('on',n===62);
+  locate();
+}
+/* 自动滚动定位：打开时跳到最后看过的那集 */
+var located=false;
+function locate(){
+  if(located)return;located=true;
+  var d=get(),ks=Object.keys(d);if(!ks.length)return;
+  var last=-1;
+  FLAT.forEach(function(f,i){if(d[f.s+'-'+f.e])last=i});
+  if(last<0)return;
+  if(ks.length===62)return; /* 全满：顶栏彩蛋已说明，不跳 */
+  var g=document.querySelectorAll('.bb-cell')[last];if(!g)return;
+  setTimeout(function(){
+    g.scrollIntoView({block:'center',behavior:'auto'});
+    g.classList.add('pulse');
+    setTimeout(function(){g.classList.remove('pulse')},2800);
+  },120);
 }
 /* sheet */
 var cur=-1;
